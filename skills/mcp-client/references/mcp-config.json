@@ -23,17 +23,5 @@
       "transport": "native",
       "_comment": "Slack — channels, messages, search. Available via mcp__slack__* tools"
     }
-    ,
-    "ay-proposals": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://ay-proposal-mcp-server.vercel.app/mcp",
-        "--header",
-        "Authorization: Bearer ${AY_PROPOSALS_API_KEY}"
-      ],
-      "_comment": "AY Proposals MCP server — set AY_PROPOSALS_API_KEY in your environment or point MCP_CONFIG_PATH to a local config with the real token (do not commit secrets)."
-    }
   }
 }
