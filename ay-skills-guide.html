@@ -18,44 +18,47 @@
   --accent:     #8182C1;
   --accent-lt:  #A3A4D8;
   --accent-sub: rgba(129,130,193,0.12);
-  --accent-glow:rgba(129,130,193,0.08);
   --text:       #f0edee;
   --muted:      #6b6b9e;
   --dim:        #3d3d6b;
   --green:      #4ade80;
   --orange:     #fb923c;
   --blue:       #60a5fa;
-  --red:        #f87171;
   --font-d:     'Space Grotesk', sans-serif;
   --font-b:     'DM Sans', sans-serif;
   --font-m:     'IBM Plex Mono', monospace;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-b);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
-  display: flex;
-  overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* SIDEBAR */
-.sidebar {
-  width: 260px;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  overflow-y: auto;
-}
-.sidebar-top {
-  padding: 24px 20px 16px;
+/* CONTAINER */
+.container { max-width: 1040px; margin: 0 auto; padding: 0 48px; }
+
+/* TOP BAR */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,8,18,0.92);
+  backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+}
+.topbar-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .brand {
   font-family: var(--font-d);
@@ -63,155 +66,235 @@ body {
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.3px;
-  margin-bottom: 2px;
 }
 .brand-dot { color: var(--accent); }
-.brand-sub {
-  font-family: var(--font-m);
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.5px;
-}
-.nav { padding: 8px 0; flex: 1; }
-.nav-section {
-  font-size: 9px;
-  color: var(--dim);
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 14px 20px 4px;
-  font-family: var(--font-b);
-  font-weight: 600;
-}
-.nav-item {
-  padding: 9px 20px;
-  cursor: pointer;
+.skill-nav {
   display: flex;
   align-items: center;
-  gap: 10px;
-  color: var(--muted);
-  font-size: 13px;
-  font-family: var(--font-b);
-  transition: all 0.12s;
-  border-left: 2px solid transparent;
-  user-select: none;
+  gap: 2px;
 }
-.nav-item:hover { color: var(--text); background: var(--surface2); }
-.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-sub); }
-.nav-num {
+.sn-item {
   font-family: var(--font-m);
-  font-size: 10px;
+  font-size: 11px;
   color: var(--dim);
-  width: 20px;
-  flex-shrink: 0;
-}
-.nav-item.active .nav-num { color: var(--accent); }
-.nav-badge {
-  margin-left: auto;
-  font-size: 9px;
-  padding: 1px 6px;
+  padding: 4px 8px;
   border-radius: 2px;
-  font-family: var(--font-m);
+  text-decoration: none;
+  transition: color 0.12s, background 0.12s;
 }
-.nb-builtin { background: var(--accent-sub); color: var(--accent); border: 1px solid rgba(129,130,193,0.2); }
-.nb-github { background: var(--surface3); color: var(--dim); border: 1px solid var(--border2); }
-.sidebar-footer {
-  padding: 16px 20px;
-  border-top: 1px solid var(--border);
-}
-.gh-link {
-  font-family: var(--font-m);
-  font-size: 10px;
-  color: var(--muted);
+.sn-item:hover { color: var(--accent); background: var(--accent-sub); }
+.gh-top {
   display: flex;
   align-items: center;
   gap: 7px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--muted);
   text-decoration: none;
-  transition: color 0.12s;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: color 0.12s, border-color 0.12s;
 }
-.gh-link:hover { color: var(--accent); }
+.gh-top:hover { color: var(--accent); border-color: var(--accent); }
 
-/* MAIN */
-.main { flex: 1; overflow-y: auto; scroll-behavior: smooth; }
-.section { display: none; padding: 48px 52px; max-width: 1000px; animation: fadeIn 0.18s ease; }
-.section.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+/* HERO */
+.hero {
+  padding: 80px 0 64px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-eyebrow {
+  font-family: var(--font-b);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::after { content: ''; display: block; width: 40px; height: 1px; background: var(--border); }
+.hero h1 {
+  font-family: var(--font-d);
+  font-size: 64px;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 580px;
+  margin-bottom: 36px;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.meta-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.meta-stat-num {
+  font-family: var(--font-m);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.meta-stat-label {
+  font-size: 11px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.meta-sep { width: 1px; height: 36px; background: var(--border); }
+.hero-gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: color 0.12s, border-color 0.12s;
+  margin-top: 12px;
+}
+.hero-gh:hover { color: var(--accent); border-color: var(--accent); }
 
-/* SECTION HEADER */
+/* HIGHLIGHT */
+.hl {
+  background: var(--accent);
+  color: #fff;
+  padding: 1px 8px 3px;
+}
+
+/* OVERVIEW */
+.overview { padding: 56px 0; border-bottom: 1px solid var(--border); }
+.section-label {
+  font-family: var(--font-b);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 28px;
+}
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+.ov-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 20px 18px;
+  text-decoration: none;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+  display: block;
+}
+.ov-card:hover { border-color: var(--accent); background: rgba(129,130,193,0.06); }
+.cb-tl, .cb-br { position: absolute; width: 12px; height: 12px; }
+.cb-tl { top: -1px; left: -1px; border-top: 1.5px solid var(--accent); border-left: 1.5px solid var(--accent); opacity: 0; transition: opacity 0.15s; }
+.cb-br { bottom: -1px; right: -1px; border-bottom: 1.5px solid var(--accent); border-right: 1.5px solid var(--accent); opacity: 0; transition: opacity 0.15s; }
+.ov-card:hover .cb-tl, .ov-card:hover .cb-br { opacity: 1; }
+.ov-num { font-family: var(--font-m); font-size: 10px; color: var(--dim); margin-bottom: 10px; }
+.ov-name { font-family: var(--font-d); font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-bottom: 6px; line-height: 1.2; }
+.ov-tag { font-size: 11px; color: var(--muted); font-weight: 300; line-height: 1.4; margin-bottom: 12px; }
+.badge {
+  font-family: var(--font-m);
+  font-size: 9px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+  display: inline-block;
+}
+.badge-builtin { background: var(--accent-sub); color: var(--accent); border: 1px solid rgba(129,130,193,0.25); }
+.badge-github { background: var(--surface3); color: var(--muted); border: 1px solid var(--border2); }
+
+/* SKILL SECTIONS */
+.skill-section {
+  padding: 72px 0 64px;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: 56px;
+}
+.skill-section:last-child { border-bottom: none; }
+.skill-header { margin-bottom: 40px; }
+.skill-num-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.s-num {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--dim);
+}
 .s-eyebrow {
   font-family: var(--font-b);
   font-size: 10px;
   font-weight: 600;
   color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  letter-spacing: 0.12em;
 }
-.s-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 200px; }
-.s-num {
-  font-family: var(--font-m);
-  font-size: 80px;
-  font-weight: 500;
-  color: var(--accent);
-  opacity: 0.06;
-  line-height: 1;
-  position: absolute;
-  right: 52px;
-  top: 48px;
-  letter-spacing: -4px;
-}
-.s-header { position: relative; margin-bottom: 32px; }
 .s-title {
   font-family: var(--font-d);
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 800;
   color: var(--text);
-  letter-spacing: -2px;
+  letter-spacing: -2.5px;
   line-height: 1;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 .s-tagline {
-  font-size: 17px;
+  font-size: 18px;
   color: var(--muted);
   font-weight: 300;
   line-height: 1.5;
-  max-width: 560px;
+  max-width: 540px;
+  margin-bottom: 16px;
 }
-.hl {
-  background: var(--accent);
-  color: #fff;
-  padding: 1px 8px 3px;
-  border-radius: 0;
+.badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 }
-.badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; margin-top: 6px; }
-.badge {
-  font-family: var(--font-m);
-  font-size: 10px;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 2px;
-  letter-spacing: 0.3px;
-}
-.badge-builtin { background: var(--accent-sub); color: var(--accent); border: 1px solid rgba(129,130,193,0.25); }
-.badge-github { background: var(--surface3); color: var(--muted); border: 1px solid var(--border2); }
 .gh-ref {
   font-family: var(--font-m);
   font-size: 10px;
   color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 6px;
   text-decoration: none;
+  transition: color 0.12s;
 }
 .gh-ref:hover { color: var(--accent); }
 
 /* CONTENT GRID */
-.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px; align-items: start; }
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 28px;
+}
 
 /* BULLETS */
-.bullets { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.bullets { list-style: none; display: flex; flex-direction: column; gap: 18px; }
 .bullets li { display: flex; gap: 12px; font-size: 15px; line-height: 1.7; color: #c8c8e0; font-weight: 300; }
 .bdot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 9px; }
 
@@ -227,9 +310,6 @@ body {
   color: var(--muted);
   position: relative;
 }
-.cb-tl, .cb-br { position: absolute; width: 14px; height: 14px; }
-.cb-tl { top: -1px; left: -1px; border-top: 1.5px solid rgba(129,130,193,0.4); border-left: 1.5px solid rgba(129,130,193,0.4); }
-.cb-br { bottom: -1px; right: -1px; border-bottom: 1.5px solid rgba(129,130,193,0.4); border-right: 1.5px solid rgba(129,130,193,0.4); }
 .rc-hd {
   font-family: var(--font-b);
   font-size: 9px;
@@ -258,8 +338,7 @@ body {
   padding: 16px 20px;
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 16px;
 }
 .install-label {
   font-size: 9px;
@@ -272,220 +351,202 @@ body {
   font-family: var(--font-b);
 }
 .install-code { font-family: var(--font-m); font-size: 12px; color: var(--muted); line-height: 1.8; }
-.install-code .c-dim { color: var(--dim); }
 
-/* OVERVIEW GRID */
-.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.skill-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 20px 22px;
-  cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
-  position: relative;
-}
-.skill-card:hover { border-color: var(--accent); background: var(--accent-glow); }
-.skill-card .cb-tl, .skill-card .cb-br { opacity: 0; transition: opacity 0.15s; }
-.skill-card:hover .cb-tl, .skill-card:hover .cb-br { opacity: 1; }
-.sc-num { font-family: var(--font-m); font-size: 10px; color: var(--dim); margin-bottom: 8px; }
-.sc-name { font-family: var(--font-d); font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; margin-bottom: 4px; }
-.sc-line { font-size: 12px; color: var(--muted); font-weight: 300; margin-bottom: 10px; }
-.sc-foot { display: flex; align-items: center; justify-content: space-between; }
-
-/* DIAGRAM nodes for excalidraw slide */
+/* DIAGRAM */
 .dg { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .dg-node { display: inline-flex; align-items: center; background: var(--surface3); border: 1px solid var(--border2); border-radius: 2px; padding: 4px 10px; font-size: 11px; color: #c8c8e0; }
 .dg-node-hl { display: inline-flex; align-items: center; background: var(--accent-sub); border: 1px solid rgba(129,130,193,0.3); border-radius: 2px; padding: 4px 10px; font-size: 11px; color: var(--accent); }
 .dg-v { color: var(--dim); font-size: 12px; margin-left: 6px; }
 .dg-row { display: flex; align-items: center; gap: 8px; }
 
-/* UI SWATCHES */
-.swatch-row { display: flex; gap: 6px; margin: 6px 0; }
-.swatch { width: 16px; height: 16px; border-radius: 2px; }
+/* SWATCHES */
+.swatch-row { display: flex; gap: 5px; margin: 6px 0; }
+.swatch { width: 15px; height: 15px; border-radius: 2px; }
 
-/* DIVIDER */
-.divider { height: 1px; background: var(--border); margin: 28px 0; }
+/* FOOTER */
+.footer {
+  padding: 48px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-brand { font-family: var(--font-d); font-size: 14px; font-weight: 700; color: var(--text); }
+.footer-gh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.12s;
+}
+.footer-gh:hover { color: var(--accent); }
+.footer-copy { font-family: var(--font-m); font-size: 10px; color: var(--dim); }
 </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<nav class="sidebar">
-  <div class="sidebar-top">
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-inner">
     <div class="brand">AY Skills<span class="brand-dot">.</span></div>
-    <div class="brand-sub">10 must have claude code skills</div>
-  </div>
-
-  <div class="nav">
-    <div class="nav-section">Overview</div>
-    <div class="nav-item active" onclick="show('overview')">
-      <span class="nav-num">00</span>
-      All 10 Skills
-    </div>
-
-    <div class="nav-section">Built-in</div>
-    <div class="nav-item" onclick="show('s01')">
-      <span class="nav-num">01</span>
-      skill-creator
-      <span class="nav-badge nb-builtin">built-in</span>
-    </div>
-    <div class="nav-item" onclick="show('s02')">
-      <span class="nav-num">02</span>
-      mcp-client
-      <span class="nav-badge nb-builtin">built-in</span>
-    </div>
-    <div class="nav-item" onclick="show('s03')">
-      <span class="nav-num">03</span>
-      artifacts-builder
-      <span class="nav-badge nb-builtin">built-in</span>
-    </div>
-    <div class="nav-item" onclick="show('s04')">
-      <span class="nav-num">04</span>
-      excalidraw-diagram
-      <span class="nav-badge nb-builtin">built-in</span>
-    </div>
-    <div class="nav-item" onclick="show('s05')">
-      <span class="nav-num">05</span>
-      remotion
-      <span class="nav-badge nb-builtin">built-in</span>
-    </div>
-
-    <div class="nav-section">From GitHub</div>
-    <div class="nav-item" onclick="show('s06')">
-      <span class="nav-num">06</span>
-      ui-ux-pro-max
-      <span class="nav-badge nb-github">github</span>
-    </div>
-    <div class="nav-item" onclick="show('s07')">
-      <span class="nav-num">07</span>
-      notebooklm
-      <span class="nav-badge nb-github">github</span>
-    </div>
-    <div class="nav-item" onclick="show('s08')">
-      <span class="nav-num">08</span>
-      claude-seo
-      <span class="nav-badge nb-github">github</span>
-    </div>
-    <div class="nav-item" onclick="show('s09')">
-      <span class="nav-num">09</span>
-      agent-browser
-      <span class="nav-badge nb-github">github</span>
-    </div>
-    <div class="nav-item" onclick="show('s10')">
-      <span class="nav-num">10</span>
-      superpowers
-      <span class="nav-badge nb-github">github</span>
-    </div>
-  </div>
-
-  <div class="sidebar-footer">
-    <a class="gh-link" href="https://github.com/walidboulanouar/Ay-Skills" target="_blank">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    <nav class="skill-nav">
+      <a class="sn-item" href="#overview">All</a>
+      <a class="sn-item" href="#s01">01</a>
+      <a class="sn-item" href="#s02">02</a>
+      <a class="sn-item" href="#s03">03</a>
+      <a class="sn-item" href="#s04">04</a>
+      <a class="sn-item" href="#s05">05</a>
+      <a class="sn-item" href="#s06">06</a>
+      <a class="sn-item" href="#s07">07</a>
+      <a class="sn-item" href="#s08">08</a>
+      <a class="sn-item" href="#s09">09</a>
+      <a class="sn-item" href="#s10">10</a>
+    </nav>
+    <a class="gh-top" href="https://github.com/walidboulanouar/Ay-Skills" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
       walidboulanouar/Ay-Skills
     </a>
   </div>
-</nav>
+</header>
 
-<!-- MAIN CONTENT -->
-<main class="main">
-
-  <!-- OVERVIEW -->
-  <div id="overview" class="section active">
-    <div class="s-eyebrow">AY Skills — curated by Walid Boulanouar</div>
-    <div style="margin-bottom: 32px;">
-      <h1 style="font-family:var(--font-d);font-size:42px;font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:10px;">
-        10 <span class="hl">must have</span><br>Claude Code Skills
-      </h1>
-      <p style="font-size:16px;color:var(--muted);font-weight:300;max-width:520px;line-height:1.7;">
-        Drop into .claude/skills/ and never prompt the same thing twice. 5 built-in, 5 from GitHub. All free, all open source.
-      </p>
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">curated by Walid Boulanouar</div>
+    <h1>10 <span class="hl">must have</span><br>Claude Code Skills</h1>
+    <p class="hero-sub">Drop into .claude/skills/ and never prompt the same thing twice. 5 built-in from the AY second brain, 5 from GitHub. All free. All open source.</p>
+    <div class="hero-meta">
+      <div class="meta-stat">
+        <div class="meta-stat-num">10</div>
+        <div class="meta-stat-label">skills</div>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-stat">
+        <div class="meta-stat-num">5</div>
+        <div class="meta-stat-label">built-in</div>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-stat">
+        <div class="meta-stat-num">5</div>
+        <div class="meta-stat-label">from github</div>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-stat">
+        <div class="meta-stat-num">free</div>
+        <div class="meta-stat-label">all of them</div>
+      </div>
     </div>
+    <a class="hero-gh" href="https://github.com/walidboulanouar/Ay-Skills" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      github.com/walidboulanouar/Ay-Skills
+    </a>
+  </div>
+</section>
 
+<!-- OVERVIEW GRID -->
+<section id="overview" class="overview">
+  <div class="container">
+    <div class="section-label">all 10 skills</div>
     <div class="overview-grid">
-      <div class="skill-card" onclick="show('s01')">
+
+      <a class="ov-card" href="#s01">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">01</div>
-        <div class="sc-name">skill-creator</div>
-        <div class="sc-line">Build skills that build for you</div>
-        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s02')">
+        <div class="ov-num">01</div>
+        <div class="ov-name">skill-creator</div>
+        <div class="ov-tag">Build skills that build for you</div>
+        <span class="badge badge-builtin">built-in</span>
+      </a>
+
+      <a class="ov-card" href="#s02">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">02</div>
-        <div class="sc-name">mcp-client</div>
-        <div class="sc-line">Connect Claude to any MCP server</div>
-        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s03')">
+        <div class="ov-num">02</div>
+        <div class="ov-name">mcp-client</div>
+        <div class="ov-tag">Connect Claude to any MCP server</div>
+        <span class="badge badge-builtin">built-in</span>
+      </a>
+
+      <a class="ov-card" href="#s03">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">03</div>
-        <div class="sc-name">artifacts-builder</div>
-        <div class="sc-line">Interactive HTML dashboards in one session</div>
-        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s04')">
+        <div class="ov-num">03</div>
+        <div class="ov-name">artifacts-builder</div>
+        <div class="ov-tag">Interactive dashboards, one session</div>
+        <span class="badge badge-builtin">built-in</span>
+      </a>
+
+      <a class="ov-card" href="#s04">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">04</div>
-        <div class="sc-name">excalidraw-diagram</div>
-        <div class="sc-line">System architectures in plain English</div>
-        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s05')">
+        <div class="ov-num">04</div>
+        <div class="ov-name">excalidraw-diagram</div>
+        <div class="ov-tag">Architecture diagrams from plain English</div>
+        <span class="badge badge-builtin">built-in</span>
+      </a>
+
+      <a class="ov-card" href="#s05">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">05</div>
-        <div class="sc-name">remotion</div>
-        <div class="sc-line">Programmatic video creation with React</div>
-        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s06')">
+        <div class="ov-num">05</div>
+        <div class="ov-name">remotion</div>
+        <div class="ov-tag">Programmatic video with React</div>
+        <span class="badge badge-builtin">built-in</span>
+      </a>
+
+      <a class="ov-card" href="#s06">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">06</div>
-        <div class="sc-name">ui-ux-pro-max</div>
-        <div class="sc-line">161 design rules, 67 UI styles</div>
-        <div class="sc-foot"><span class="badge badge-github">github</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s07')">
+        <div class="ov-num">06</div>
+        <div class="ov-name">ui-ux-pro-max</div>
+        <div class="ov-tag">161 design rules, zero generic output</div>
+        <span class="badge badge-github">github</span>
+      </a>
+
+      <a class="ov-card" href="#s07">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">07</div>
-        <div class="sc-name">notebooklm</div>
-        <div class="sc-line">Query your docs, zero hallucinations</div>
-        <div class="sc-foot"><span class="badge badge-github">github</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s08')">
+        <div class="ov-num">07</div>
+        <div class="ov-name">notebooklm</div>
+        <div class="ov-tag">Query docs with zero hallucinations</div>
+        <span class="badge badge-github">github</span>
+      </a>
+
+      <a class="ov-card" href="#s08">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">08</div>
-        <div class="sc-name">claude-seo</div>
-        <div class="sc-line">Full SEO audits with 13 sub-skills</div>
-        <div class="sc-foot"><span class="badge badge-github">github</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s09')">
+        <div class="ov-num">08</div>
+        <div class="ov-name">claude-seo</div>
+        <div class="ov-tag">Full SEO audits, 13 sub-skills</div>
+        <span class="badge badge-github">github</span>
+      </a>
+
+      <a class="ov-card" href="#s09">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">09</div>
-        <div class="sc-name">agent-browser</div>
-        <div class="sc-line">Control any browser, no API needed</div>
-        <div class="sc-foot"><span class="badge badge-github">github</span></div>
-      </div>
-      <div class="skill-card" onclick="show('s10')">
+        <div class="ov-num">09</div>
+        <div class="ov-name">agent-browser</div>
+        <div class="ov-tag">Control any browser, no API needed</div>
+        <span class="badge badge-github">github</span>
+      </a>
+
+      <a class="ov-card" href="#s10">
         <span class="cb-tl"></span><span class="cb-br"></span>
-        <div class="sc-num">10</div>
-        <div class="sc-name">superpowers</div>
-        <div class="sc-line">Brainstorm to merged PR, automated</div>
-        <div class="sc-foot"><span class="badge badge-github">github</span></div>
-      </div>
+        <div class="ov-num">10</div>
+        <div class="ov-name">superpowers</div>
+        <div class="ov-tag">Brainstorm to merged PR, automated</div>
+        <span class="badge badge-github">github</span>
+      </a>
+
     </div>
   </div>
+</section>
 
-  <!-- SKILL 01: skill-creator -->
-  <div id="s01" class="section">
-    <div class="s-header">
-      <div class="s-num">01</div>
-      <div class="s-eyebrow">skill 01 / 10 — built-in</div>
-      <h1 class="s-title">skill-creator</h1>
-      <div class="badge-row">
-        <span class="badge badge-builtin">built-in</span>
+<!-- SKILL 01: skill-creator -->
+<section id="s01" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">01 / 10</span>
+        <span class="s-eyebrow">built-in</span>
       </div>
+      <h2 class="s-title">skill-creator</h2>
       <p class="s-tagline">Build <span class="hl">skills</span> that build for you.</p>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -497,8 +558,8 @@ body {
         <span class="cb-tl"></span><span class="cb-br"></span>
         <div class="rc-hd">output preview</div>
 <span class="c-dim">---</span><br>
-<span class="c-purple">name:</span> <span class="c-white">client-report</span><br>
-<span class="c-purple">description:</span> <span class="c-white">Weekly client update</span><br>
+<span class="c-accent">name:</span> <span class="c-white">client-report</span><br>
+<span class="c-accent">description:</span> <span class="c-white">Weekly client update</span><br>
 <span class="c-dim">---</span><br><br>
 <span class="c-blue">## Trigger</span><br>
 <span class="c-white">"report for [client]"</span><br><br>
@@ -512,23 +573,27 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">.claude/skills/skill-creator/ <span class="c-dim"># already in your second brain</span></span>
+      <span class="install-code">.claude/skills/skill-creator/ <span style="color:var(--dim);"># already in your second brain</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 02: mcp-client -->
-  <div id="s02" class="section">
-    <div class="s-header">
-      <div class="s-num">02</div>
-      <div class="s-eyebrow">skill 02 / 10 — built-in</div>
-      <h1 class="s-title">mcp-client</h1>
-      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+<!-- SKILL 02: mcp-client -->
+<section id="s02" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">02 / 10</span>
+        <span class="s-eyebrow">built-in</span>
+      </div>
+      <h2 class="s-title">mcp-client</h2>
       <p class="s-tagline">Connect Claude to <span class="hl">any MCP server</span> without killing context.</p>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
     </div>
     <div class="content-grid">
       <ul class="bullets">
         <li><span class="bdot"></span><span>Loads tool schemas on demand. Not 2000 tokens upfront at session start. Context stays clean.</span></li>
-        <li><span class="bdot"></span><span>Works with Zapier, GitHub, n8n, filesystem, or any MCP server you configure. Includes scripts and reference configs.</span></li>
+        <li><span class="bdot"></span><span>Works with Zapier, GitHub, n8n, filesystem, or any MCP server you configure. Scripts and reference configs included.</span></li>
         <li><span class="bdot"></span><span>Three commands: <code style="font-family:var(--font-m);color:var(--accent);">servers</code> / <code style="font-family:var(--font-m);color:var(--accent);">tools</code> / <code style="font-family:var(--font-m);color:var(--accent);">call</code>. Progressive disclosure by design.</span></li>
       </ul>
       <div class="result-card">
@@ -548,18 +613,22 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">pip install mcp fastmcp<br>.claude/skills/mcp-client/ <span class="c-dim"># scripts + references included</span></span>
+      <span class="install-code">pip install mcp fastmcp<br>.claude/skills/mcp-client/ <span style="color:var(--dim);"># scripts + references included</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 03: artifacts-builder -->
-  <div id="s03" class="section">
-    <div class="s-header">
-      <div class="s-num">03</div>
-      <div class="s-eyebrow">skill 03 / 10 — built-in</div>
-      <h1 class="s-title">artifacts-builder</h1>
-      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+<!-- SKILL 03: artifacts-builder -->
+<section id="s03" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">03 / 10</span>
+        <span class="s-eyebrow">built-in</span>
+      </div>
+      <h2 class="s-title">artifacts-builder</h2>
       <p class="s-tagline"><span class="hl">Interactive dashboards</span> shipped in one session.</p>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -589,18 +658,22 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">.claude/skills/artifacts-builder/ <span class="c-dim"># use in claude.ai sessions</span></span>
+      <span class="install-code">.claude/skills/artifacts-builder/ <span style="color:var(--dim);"># use in claude.ai sessions</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 04: excalidraw-diagram -->
-  <div id="s04" class="section">
-    <div class="s-header">
-      <div class="s-num">04</div>
-      <div class="s-eyebrow">skill 04 / 10 — built-in</div>
-      <h1 class="s-title">excalidraw-<br>diagram</h1>
-      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+<!-- SKILL 04: excalidraw-diagram -->
+<section id="s04" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">04 / 10</span>
+        <span class="s-eyebrow">built-in</span>
+      </div>
+      <h2 class="s-title">excalidraw-<br>diagram</h2>
       <p class="s-tagline"><span class="hl">Architecture diagrams</span> from plain English.</p>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -635,18 +708,22 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">.claude/skills/excalidraw-diagram/ <span class="c-dim"># requires playwright</span></span>
+      <span class="install-code">.claude/skills/excalidraw-diagram/ <span style="color:var(--dim);"># requires playwright</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 05: remotion -->
-  <div id="s05" class="section">
-    <div class="s-header">
-      <div class="s-num">05</div>
-      <div class="s-eyebrow">skill 05 / 10 — built-in</div>
-      <h1 class="s-title">remotion</h1>
-      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+<!-- SKILL 05: remotion -->
+<section id="s05" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">05 / 10</span>
+        <span class="s-eyebrow">built-in</span>
+      </div>
+      <h2 class="s-title">remotion</h2>
       <p class="s-tagline"><span class="hl">Programmatic video</span> creation with React.</p>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -669,21 +746,25 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">.claude/skills/remotion/ <span class="c-dim"># github.com/remotion-dev/skills</span></span>
+      <span class="install-code">.claude/skills/remotion/ <span style="color:var(--dim);"># github.com/remotion-dev/skills</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 06: ui-ux-pro-max -->
-  <div id="s06" class="section">
-    <div class="s-header">
-      <div class="s-num">06</div>
-      <div class="s-eyebrow">skill 06 / 10 — github</div>
-      <h1 class="s-title">ui-ux-pro-max</h1>
+<!-- SKILL 06: ui-ux-pro-max -->
+<section id="s06" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">06 / 10</span>
+        <span class="s-eyebrow">github</span>
+      </div>
+      <h2 class="s-title">ui-ux-pro-max</h2>
+      <p class="s-tagline"><span class="hl">161 design rules.</span> Zero generic output.</p>
       <div class="badge-row">
         <span class="badge badge-github">github</span>
         <a class="gh-ref" href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank">github.com/nextlevelbuilder/ui-ux-pro-max-skill</a>
       </div>
-      <p class="s-tagline"><span class="hl">161 design rules.</span> Zero generic output.</p>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -716,24 +797,28 @@ body {
       <span class="install-code">npm install -g uipro-cli<br>uipro init --ai claude</span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 07: notebooklm -->
-  <div id="s07" class="section">
-    <div class="s-header">
-      <div class="s-num">07</div>
-      <div class="s-eyebrow">skill 07 / 10 — github</div>
-      <h1 class="s-title">notebooklm</h1>
+<!-- SKILL 07: notebooklm -->
+<section id="s07" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">07 / 10</span>
+        <span class="s-eyebrow">github</span>
+      </div>
+      <h2 class="s-title">notebooklm</h2>
+      <p class="s-tagline">Query your docs. <span class="hl">Zero hallucinations.</span></p>
       <div class="badge-row">
         <span class="badge badge-github">github</span>
         <a class="gh-ref" href="https://github.com/PleasePrompto/notebooklm-skill" target="_blank">github.com/PleasePrompto/notebooklm-skill</a>
       </div>
-      <p class="s-tagline">Query your docs. <span class="hl">Zero hallucinations.</span></p>
     </div>
     <div class="content-grid">
       <ul class="bullets">
         <li><span class="bdot"></span><span>Source-grounded answers exclusively from your uploaded documents. Every answer ties back to a source.</span></li>
         <li><span class="bdot"></span><span>Manages multiple notebooks with persistent browser authentication. Auto follow-up loop until the answer is complete.</span></li>
-        <li><span class="bdot"></span><span>Always use <code style="font-family:var(--font-m);color:var(--accent);">run.py</code> wrapper. Handles venv, dependencies, and Chromium automatically on first run.</span></li>
+        <li><span class="bdot"></span><span>Always use the <code style="font-family:var(--font-m);color:var(--accent);">run.py</code> wrapper. Handles venv, dependencies, and Chromium automatically on first run.</span></li>
       </ul>
       <div class="result-card">
         <span class="cb-tl"></span><span class="cb-br"></span>
@@ -754,18 +839,22 @@ body {
       <span class="install-code">git clone https://github.com/PleasePrompto/notebooklm-skill ~/.claude/skills/notebooklm</span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 08: claude-seo -->
-  <div id="s08" class="section">
-    <div class="s-header">
-      <div class="s-num">08</div>
-      <div class="s-eyebrow">skill 08 / 10 — github</div>
-      <h1 class="s-title">claude-seo</h1>
+<!-- SKILL 08: claude-seo -->
+<section id="s08" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">08 / 10</span>
+        <span class="s-eyebrow">github</span>
+      </div>
+      <h2 class="s-title">claude-seo</h2>
+      <p class="s-tagline">Full SEO audits with <span class="hl">13 sub-skills</span> and 6 subagents.</p>
       <div class="badge-row">
         <span class="badge badge-github">github</span>
         <a class="gh-ref" href="https://github.com/AgriciDaniel/claude-seo" target="_blank">github.com/AgriciDaniel/claude-seo</a>
       </div>
-      <p class="s-tagline">Full SEO audits with <span class="hl">13 sub-skills</span> and 6 subagents.</p>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -791,21 +880,25 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash <span class="c-dim"># Python 3.8+ required</span></span>
+      <span class="install-code">curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash <span style="color:var(--dim);"># Python 3.8+</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 09: agent-browser -->
-  <div id="s09" class="section">
-    <div class="s-header">
-      <div class="s-num">09</div>
-      <div class="s-eyebrow">skill 09 / 10 — github</div>
-      <h1 class="s-title">agent-browser</h1>
+<!-- SKILL 09: agent-browser -->
+<section id="s09" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">09 / 10</span>
+        <span class="s-eyebrow">github</span>
+      </div>
+      <h2 class="s-title">agent-browser</h2>
+      <p class="s-tagline">Control <span class="hl">any browser interface.</span> No API needed.</p>
       <div class="badge-row">
         <span class="badge badge-github">github</span>
         <a class="gh-ref" href="https://github.com/vercel-labs/agent-browser" target="_blank">github.com/vercel-labs/agent-browser</a>
       </div>
-      <p class="s-tagline">Control <span class="hl">any browser interface.</span> No API needed.</p>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -829,21 +922,25 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">npm install -g agent-browser<br>agent-browser install <span class="c-dim"># downloads Chromium</span></span>
+      <span class="install-code">npm install -g agent-browser<br>agent-browser install <span style="color:var(--dim);"># downloads Chromium</span></span>
     </div>
   </div>
+</section>
 
-  <!-- SKILL 10: superpowers -->
-  <div id="s10" class="section">
-    <div class="s-header">
-      <div class="s-num">10</div>
-      <div class="s-eyebrow">skill 10 / 10 — github</div>
-      <h1 class="s-title">superpowers</h1>
+<!-- SKILL 10: superpowers -->
+<section id="s10" class="skill-section">
+  <div class="container">
+    <div class="skill-header">
+      <div class="skill-num-row">
+        <span class="s-num">10 / 10</span>
+        <span class="s-eyebrow">github</span>
+      </div>
+      <h2 class="s-title">superpowers</h2>
+      <p class="s-tagline">Brainstorm to <span class="hl">merged PR,</span> fully automated.</p>
       <div class="badge-row">
         <span class="badge badge-github">github</span>
         <a class="gh-ref" href="https://github.com/obra/superpowers" target="_blank">github.com/obra/superpowers</a>
       </div>
-      <p class="s-tagline">Brainstorm to <span class="hl">merged PR,</span> fully automated.</p>
     </div>
     <div class="content-grid">
       <ul class="bullets">
@@ -869,21 +966,24 @@ body {
     </div>
     <div class="install-block">
       <span class="install-label">install</span>
-      <span class="install-code">git clone https://github.com/obra/superpowers ~/.claude/skills/superpowers <span class="c-dim"># or Claude Code plugin marketplace</span></span>
+      <span class="install-code">git clone https://github.com/obra/superpowers ~/.claude/skills/superpowers <span style="color:var(--dim);"># or Claude Code plugin marketplace</span></span>
     </div>
   </div>
+</section>
 
-</main>
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer">
+      <div class="footer-brand">AY Skills<span style="color:var(--accent);">.</span></div>
+      <a class="footer-gh" href="https://github.com/walidboulanouar/Ay-Skills" target="_blank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        github.com/walidboulanouar/Ay-Skills
+      </a>
+      <div class="footer-copy">curated by Walid Boulanouar / AY Automate</div>
+    </div>
+  </div>
+</footer>
 
-<script>
-function show(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  const map = { overview: 0, s01: 1, s02: 2, s03: 3, s04: 4, s05: 5, s06: 6, s07: 7, s08: 8, s09: 9, s10: 10 };
-  document.querySelectorAll('.nav-item')[map[id]].classList.add('active');
-  document.querySelector('.main').scrollTo(0, 0);
-}
-</script>
 </body>
 </html>
