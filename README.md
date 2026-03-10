@@ -33,6 +33,11 @@ A skill is a `SKILL.md` file (and optional supporting files) that you drop into 
 
 Open an issue or PR. Skills should be self-contained, well-documented, and tested.
 
+## Assets
+
+- Carousel HTML slides: 008_Builds/carousel (monorepo root)
+- Lead magnet images: 008_Builds/nano-banana-images (monorepo root)
+
 ---
 
 Built by [Walid Boulanouar](https://linkedin.com/in/walid-boulanouar) · AY Automate
