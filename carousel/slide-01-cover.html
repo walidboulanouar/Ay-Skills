@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AY Skills — Cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #ccc8e4;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 24px;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.slide {
+  width: 1200px;
+  height: 1500px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.hero {
+  background: #080812;
+  padding: 52px 72px 56px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.hero-glow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(129,130,193,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 64px;
+}
+.author-info { display: flex; align-items: center; gap: 14px; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+.author-name { font-size: 15px; font-weight: 500; color: #9c95a0; }
+.brand { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: #f8f8ff; letter-spacing: -0.3px; }
+.brand-dot { color: #8182C1; }
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8182C1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 72px;
+  font-weight: 800;
+  color: #f8f8ff;
+  line-height: 1.0;
+  letter-spacing: -2.5px;
+  margin-bottom: 20px;
+}
+.hl {
+  background: #8182C1;
+  color: #ffffff;
+  padding: 2px 12px 5px;
+  border-radius: 0;
+  display: inline;
+}
+.hero-sub {
+  font-size: 18px;
+  color: #6b6b9e;
+  line-height: 1.6;
+  max-width: 600px;
+  font-weight: 300;
+}
+.accent-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #8182C1 0%, transparent 100%);
+  opacity: 0.3;
+  margin-top: 52px;
+}
+.body-section {
+  padding: 44px 72px 52px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: #e5e5f0; }
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 36px;
+  flex: 1;
+  align-content: start;
+}
+.skill-card {
+  background: #ffffff;
+  border: 1px solid #e5e5f0;
+  border-radius: 4px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+.skill-card .cb-tl, .skill-card .cb-br { position: absolute; width: 12px; height: 12px; }
+.skill-card .cb-tl { top: -1px; left: -1px; border-top: 1.5px solid rgba(129,130,193,0.4); border-left: 1.5px solid rgba(129,130,193,0.4); }
+.skill-card .cb-br { bottom: -1px; right: -1px; border-bottom: 1.5px solid rgba(129,130,193,0.4); border-right: 1.5px solid rgba(129,130,193,0.4); }
+.skill-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #8182C1;
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 22px;
+}
+.skill-info { flex: 1; }
+.skill-name-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #080812;
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+.skill-one-line {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 300;
+}
+.skill-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+}
+.badge-builtin { background: rgba(129,130,193,0.1); color: #5b57a0; border: 1px solid rgba(129,130,193,0.25); }
+.badge-github { background: #080812; color: #6b6b9e; border: 1px solid #1e1e3f; }
+.footer-row {
+  border-top: 1px solid #e5e5f0;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-note {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #9ca3af;
+}
+.swipe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8182C1;
+}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="top-bar">
+      <div class="author-info">
+        <div class="avatar">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="22" fill="#1e1e3f"/>
+            <circle cx="22" cy="17" r="7" fill="#3d3d6b"/>
+            <ellipse cx="22" cy="38" rx="13" ry="8.5" fill="#3d3d6b"/>
+          </svg>
+        </div>
+        <span class="author-name">Walid Boulanouar</span>
+      </div>
+      <div class="brand">AY Automate<span class="brand-dot">.</span></div>
+    </div>
+
+    <p class="eyebrow">must have claude code skills</p>
+    <h1 class="hero-headline">
+      <span class="hl">10 Skills</span><br>
+      every Claude Code<br>
+      builder should install
+    </h1>
+    <p class="hero-sub">Drop into .claude/skills/ and never prompt the same thing twice. No config, no API keys, no deployment.</p>
+    <div class="accent-line"></div>
+  </div>
+
+  <div class="body-section">
+    <p class="section-label">the full list</p>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">01</span>
+        <div class="skill-info">
+          <div class="skill-name-text">skill-creator</div>
+          <div class="skill-one-line">Build skills that build for you</div>
+        </div>
+        <span class="skill-badge badge-builtin">built-in</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">02</span>
+        <div class="skill-info">
+          <div class="skill-name-text">mcp-client</div>
+          <div class="skill-one-line">Connect Claude to any MCP server</div>
+        </div>
+        <span class="skill-badge badge-builtin">built-in</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">03</span>
+        <div class="skill-info">
+          <div class="skill-name-text">artifacts-builder</div>
+          <div class="skill-one-line">Interactive HTML dashboards in one session</div>
+        </div>
+        <span class="skill-badge badge-builtin">built-in</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">04</span>
+        <div class="skill-info">
+          <div class="skill-name-text">excalidraw-diagram</div>
+          <div class="skill-one-line">System architectures in plain English</div>
+        </div>
+        <span class="skill-badge badge-builtin">built-in</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">05</span>
+        <div class="skill-info">
+          <div class="skill-name-text">remotion</div>
+          <div class="skill-one-line">Programmatic video creation with React</div>
+        </div>
+        <span class="skill-badge badge-builtin">built-in</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">06</span>
+        <div class="skill-info">
+          <div class="skill-name-text">ui-ux-pro-max</div>
+          <div class="skill-one-line">161 design rules, 67 UI styles</div>
+        </div>
+        <span class="skill-badge badge-github">github</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">07</span>
+        <div class="skill-info">
+          <div class="skill-name-text">notebooklm</div>
+          <div class="skill-one-line">Query your docs, zero hallucinations</div>
+        </div>
+        <span class="skill-badge badge-github">github</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">08</span>
+        <div class="skill-info">
+          <div class="skill-name-text">claude-seo</div>
+          <div class="skill-one-line">Full SEO audits with 13 sub-skills</div>
+        </div>
+        <span class="skill-badge badge-github">github</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">09</span>
+        <div class="skill-info">
+          <div class="skill-name-text">agent-browser</div>
+          <div class="skill-one-line">Control any browser, no API needed</div>
+        </div>
+        <span class="skill-badge badge-github">github</span>
+      </div>
+      <div class="skill-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <span class="skill-num">10</span>
+        <div class="skill-info">
+          <div class="skill-name-text">superpowers</div>
+          <div class="skill-one-line">Brainstorm to merged PR, automated</div>
+        </div>
+        <span class="skill-badge badge-github">github</span>
+      </div>
+    </div>
+
+    <div class="footer-row">
+      <span class="footer-note">github.com/walidboulanouar/ay-skills</span>
+      <div class="swipe">swipe for each skill &#8594;</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

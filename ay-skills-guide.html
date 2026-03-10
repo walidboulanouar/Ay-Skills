@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AY Skills — 10 Must Have Claude Code Skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #080812;
+  --surface:    #0f0f23;
+  --surface2:   #14141c;
+  --surface3:   #1e1e3f;
+  --border:     #1e1e3f;
+  --border2:    #2a2a5a;
+  --accent:     #8182C1;
+  --accent-lt:  #A3A4D8;
+  --accent-sub: rgba(129,130,193,0.12);
+  --accent-glow:rgba(129,130,193,0.08);
+  --text:       #f0edee;
+  --muted:      #6b6b9e;
+  --dim:        #3d3d6b;
+  --green:      #4ade80;
+  --orange:     #fb923c;
+  --blue:       #60a5fa;
+  --red:        #f87171;
+  --font-d:     'Space Grotesk', sans-serif;
+  --font-b:     'DM Sans', sans-serif;
+  --font-m:     'IBM Plex Mono', monospace;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.sidebar-top {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.brand {
+  font-family: var(--font-d);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  margin-bottom: 2px;
+}
+.brand-dot { color: var(--accent); }
+.brand-sub {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.nav { padding: 8px 0; flex: 1; }
+.nav-section {
+  font-size: 9px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 14px 20px 4px;
+  font-family: var(--font-b);
+  font-weight: 600;
+}
+.nav-item {
+  padding: 9px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  font-family: var(--font-b);
+  transition: all 0.12s;
+  border-left: 2px solid transparent;
+  user-select: none;
+}
+.nav-item:hover { color: var(--text); background: var(--surface2); }
+.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-sub); }
+.nav-num {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--dim);
+  width: 20px;
+  flex-shrink: 0;
+}
+.nav-item.active .nav-num { color: var(--accent); }
+.nav-badge {
+  margin-left: auto;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-family: var(--font-m);
+}
+.nb-builtin { background: var(--accent-sub); color: var(--accent); border: 1px solid rgba(129,130,193,0.2); }
+.nb-github { background: var(--surface3); color: var(--dim); border: 1px solid var(--border2); }
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+.gh-link {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  transition: color 0.12s;
+}
+.gh-link:hover { color: var(--accent); }
+
+/* MAIN */
+.main { flex: 1; overflow-y: auto; scroll-behavior: smooth; }
+.section { display: none; padding: 48px 52px; max-width: 1000px; animation: fadeIn 0.18s ease; }
+.section.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* SECTION HEADER */
+.s-eyebrow {
+  font-family: var(--font-b);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.s-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 200px; }
+.s-num {
+  font-family: var(--font-m);
+  font-size: 80px;
+  font-weight: 500;
+  color: var(--accent);
+  opacity: 0.06;
+  line-height: 1;
+  position: absolute;
+  right: 52px;
+  top: 48px;
+  letter-spacing: -4px;
+}
+.s-header { position: relative; margin-bottom: 32px; }
+.s-title {
+  font-family: var(--font-d);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.s-tagline {
+  font-size: 17px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 560px;
+}
+.hl {
+  background: var(--accent);
+  color: #fff;
+  padding: 1px 8px 3px;
+  border-radius: 0;
+}
+.badge-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; margin-top: 6px; }
+.badge {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+}
+.badge-builtin { background: var(--accent-sub); color: var(--accent); border: 1px solid rgba(129,130,193,0.25); }
+.badge-github { background: var(--surface3); color: var(--muted); border: 1px solid var(--border2); }
+.gh-ref {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.gh-ref:hover { color: var(--accent); }
+
+/* CONTENT GRID */
+.content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 24px; align-items: start; }
+
+/* BULLETS */
+.bullets { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.bullets li { display: flex; gap: 12px; font-size: 15px; line-height: 1.7; color: #c8c8e0; font-weight: 300; }
+.bdot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 9px; }
+
+/* RESULT CARD */
+.result-card {
+  background: #070710;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 22px 20px;
+  font-family: var(--font-m);
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--muted);
+  position: relative;
+}
+.cb-tl, .cb-br { position: absolute; width: 14px; height: 14px; }
+.cb-tl { top: -1px; left: -1px; border-top: 1.5px solid rgba(129,130,193,0.4); border-left: 1.5px solid rgba(129,130,193,0.4); }
+.cb-br { bottom: -1px; right: -1px; border-bottom: 1.5px solid rgba(129,130,193,0.4); border-right: 1.5px solid rgba(129,130,193,0.4); }
+.rc-hd {
+  font-family: var(--font-b);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.c-purple { color: #a78bfa; }
+.c-green  { color: #4ade80; }
+.c-blue   { color: #60a5fa; }
+.c-orange { color: #fb923c; }
+.c-dim    { color: var(--dim); }
+.c-white  { color: #c8c8e0; }
+.c-accent { color: var(--accent-lt); }
+
+/* INSTALL */
+.install-block {
+  background: #070710;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.install-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+  padding-top: 2px;
+  font-family: var(--font-b);
+}
+.install-code { font-family: var(--font-m); font-size: 12px; color: var(--muted); line-height: 1.8; }
+.install-code .c-dim { color: var(--dim); }
+
+/* OVERVIEW GRID */
+.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 20px 22px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  position: relative;
+}
+.skill-card:hover { border-color: var(--accent); background: var(--accent-glow); }
+.skill-card .cb-tl, .skill-card .cb-br { opacity: 0; transition: opacity 0.15s; }
+.skill-card:hover .cb-tl, .skill-card:hover .cb-br { opacity: 1; }
+.sc-num { font-family: var(--font-m); font-size: 10px; color: var(--dim); margin-bottom: 8px; }
+.sc-name { font-family: var(--font-d); font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; margin-bottom: 4px; }
+.sc-line { font-size: 12px; color: var(--muted); font-weight: 300; margin-bottom: 10px; }
+.sc-foot { display: flex; align-items: center; justify-content: space-between; }
+
+/* DIAGRAM nodes for excalidraw slide */
+.dg { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.dg-node { display: inline-flex; align-items: center; background: var(--surface3); border: 1px solid var(--border2); border-radius: 2px; padding: 4px 10px; font-size: 11px; color: #c8c8e0; }
+.dg-node-hl { display: inline-flex; align-items: center; background: var(--accent-sub); border: 1px solid rgba(129,130,193,0.3); border-radius: 2px; padding: 4px 10px; font-size: 11px; color: var(--accent); }
+.dg-v { color: var(--dim); font-size: 12px; margin-left: 6px; }
+.dg-row { display: flex; align-items: center; gap: 8px; }
+
+/* UI SWATCHES */
+.swatch-row { display: flex; gap: 6px; margin: 6px 0; }
+.swatch { width: 16px; height: 16px; border-radius: 2px; }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--border); margin: 28px 0; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <div class="brand">AY Skills<span class="brand-dot">.</span></div>
+    <div class="brand-sub">10 must have claude code skills</div>
+  </div>
+
+  <div class="nav">
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" onclick="show('overview')">
+      <span class="nav-num">00</span>
+      All 10 Skills
+    </div>
+
+    <div class="nav-section">Built-in</div>
+    <div class="nav-item" onclick="show('s01')">
+      <span class="nav-num">01</span>
+      skill-creator
+      <span class="nav-badge nb-builtin">built-in</span>
+    </div>
+    <div class="nav-item" onclick="show('s02')">
+      <span class="nav-num">02</span>
+      mcp-client
+      <span class="nav-badge nb-builtin">built-in</span>
+    </div>
+    <div class="nav-item" onclick="show('s03')">
+      <span class="nav-num">03</span>
+      artifacts-builder
+      <span class="nav-badge nb-builtin">built-in</span>
+    </div>
+    <div class="nav-item" onclick="show('s04')">
+      <span class="nav-num">04</span>
+      excalidraw-diagram
+      <span class="nav-badge nb-builtin">built-in</span>
+    </div>
+    <div class="nav-item" onclick="show('s05')">
+      <span class="nav-num">05</span>
+      remotion
+      <span class="nav-badge nb-builtin">built-in</span>
+    </div>
+
+    <div class="nav-section">From GitHub</div>
+    <div class="nav-item" onclick="show('s06')">
+      <span class="nav-num">06</span>
+      ui-ux-pro-max
+      <span class="nav-badge nb-github">github</span>
+    </div>
+    <div class="nav-item" onclick="show('s07')">
+      <span class="nav-num">07</span>
+      notebooklm
+      <span class="nav-badge nb-github">github</span>
+    </div>
+    <div class="nav-item" onclick="show('s08')">
+      <span class="nav-num">08</span>
+      claude-seo
+      <span class="nav-badge nb-github">github</span>
+    </div>
+    <div class="nav-item" onclick="show('s09')">
+      <span class="nav-num">09</span>
+      agent-browser
+      <span class="nav-badge nb-github">github</span>
+    </div>
+    <div class="nav-item" onclick="show('s10')">
+      <span class="nav-num">10</span>
+      superpowers
+      <span class="nav-badge nb-github">github</span>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <a class="gh-link" href="https://github.com/walidboulanouar/Ay-Skills" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      walidboulanouar/Ay-Skills
+    </a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- OVERVIEW -->
+  <div id="overview" class="section active">
+    <div class="s-eyebrow">AY Skills — curated by Walid Boulanouar</div>
+    <div style="margin-bottom: 32px;">
+      <h1 style="font-family:var(--font-d);font-size:42px;font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:10px;">
+        10 <span class="hl">must have</span><br>Claude Code Skills
+      </h1>
+      <p style="font-size:16px;color:var(--muted);font-weight:300;max-width:520px;line-height:1.7;">
+        Drop into .claude/skills/ and never prompt the same thing twice. 5 built-in, 5 from GitHub. All free, all open source.
+      </p>
+    </div>
+
+    <div class="overview-grid">
+      <div class="skill-card" onclick="show('s01')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">01</div>
+        <div class="sc-name">skill-creator</div>
+        <div class="sc-line">Build skills that build for you</div>
+        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s02')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">02</div>
+        <div class="sc-name">mcp-client</div>
+        <div class="sc-line">Connect Claude to any MCP server</div>
+        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s03')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">03</div>
+        <div class="sc-name">artifacts-builder</div>
+        <div class="sc-line">Interactive HTML dashboards in one session</div>
+        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s04')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">04</div>
+        <div class="sc-name">excalidraw-diagram</div>
+        <div class="sc-line">System architectures in plain English</div>
+        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s05')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">05</div>
+        <div class="sc-name">remotion</div>
+        <div class="sc-line">Programmatic video creation with React</div>
+        <div class="sc-foot"><span class="badge badge-builtin">built-in</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s06')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">06</div>
+        <div class="sc-name">ui-ux-pro-max</div>
+        <div class="sc-line">161 design rules, 67 UI styles</div>
+        <div class="sc-foot"><span class="badge badge-github">github</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s07')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">07</div>
+        <div class="sc-name">notebooklm</div>
+        <div class="sc-line">Query your docs, zero hallucinations</div>
+        <div class="sc-foot"><span class="badge badge-github">github</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s08')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">08</div>
+        <div class="sc-name">claude-seo</div>
+        <div class="sc-line">Full SEO audits with 13 sub-skills</div>
+        <div class="sc-foot"><span class="badge badge-github">github</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s09')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">09</div>
+        <div class="sc-name">agent-browser</div>
+        <div class="sc-line">Control any browser, no API needed</div>
+        <div class="sc-foot"><span class="badge badge-github">github</span></div>
+      </div>
+      <div class="skill-card" onclick="show('s10')">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="sc-num">10</div>
+        <div class="sc-name">superpowers</div>
+        <div class="sc-line">Brainstorm to merged PR, automated</div>
+        <div class="sc-foot"><span class="badge badge-github">github</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL 01: skill-creator -->
+  <div id="s01" class="section">
+    <div class="s-header">
+      <div class="s-num">01</div>
+      <div class="s-eyebrow">skill 01 / 10 — built-in</div>
+      <h1 class="s-title">skill-creator</h1>
+      <div class="badge-row">
+        <span class="badge badge-builtin">built-in</span>
+      </div>
+      <p class="s-tagline">Build <span class="hl">skills</span> that build for you.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Write a markdown file. Define a trigger, steps, and tools. Claude follows it every session without repeating yourself.</span></li>
+        <li><span class="bdot"></span><span>Reusable across every project. One skill file, zero setup overhead, no deployment required.</span></li>
+        <li><span class="bdot"></span><span>15 minutes to write. Saves hours every week. The more you build, the faster Claude works.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">output preview</div>
+<span class="c-dim">---</span><br>
+<span class="c-purple">name:</span> <span class="c-white">client-report</span><br>
+<span class="c-purple">description:</span> <span class="c-white">Weekly client update</span><br>
+<span class="c-dim">---</span><br><br>
+<span class="c-blue">## Trigger</span><br>
+<span class="c-white">"report for [client]"</span><br><br>
+<span class="c-blue">## Steps</span><br>
+<span class="c-dim">1.</span> <span class="c-white">Read Progress.md</span><br>
+<span class="c-dim">2.</span> <span class="c-white">Read Comms-Log.md</span><br>
+<span class="c-dim">3.</span> <span class="c-white">Generate summary</span><br>
+<span class="c-dim">4.</span> <span class="c-white">Log to Attio</span><br><br>
+<span class="c-green">ready in 30 seconds</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">.claude/skills/skill-creator/ <span class="c-dim"># already in your second brain</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 02: mcp-client -->
+  <div id="s02" class="section">
+    <div class="s-header">
+      <div class="s-num">02</div>
+      <div class="s-eyebrow">skill 02 / 10 — built-in</div>
+      <h1 class="s-title">mcp-client</h1>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+      <p class="s-tagline">Connect Claude to <span class="hl">any MCP server</span> without killing context.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Loads tool schemas on demand. Not 2000 tokens upfront at session start. Context stays clean.</span></li>
+        <li><span class="bdot"></span><span>Works with Zapier, GitHub, n8n, filesystem, or any MCP server you configure. Includes scripts and reference configs.</span></li>
+        <li><span class="bdot"></span><span>Three commands: <code style="font-family:var(--font-m);color:var(--accent);">servers</code> / <code style="font-family:var(--font-m);color:var(--accent);">tools</code> / <code style="font-family:var(--font-m);color:var(--accent);">call</code>. Progressive disclosure by design.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">terminal session</div>
+<span class="c-dim">$</span> <span class="c-purple">python</span> <span class="c-white">mcp_client.py servers</span><br>
+<span class="c-green">zapier</span>      connected<br>
+<span class="c-green">github</span>      connected<br>
+<span class="c-green">n8n</span>         connected<br><br>
+<span class="c-dim">$</span> <span class="c-purple">python</span> <span class="c-white">mcp_client.py tools zapier</span><br>
+<span class="c-accent">847 tools available</span><br>
+<span class="c-dim">gmail.send, sheets.append...</span><br><br>
+<span class="c-dim">$</span> <span class="c-purple">python</span> <span class="c-white">mcp_client.py call</span><br>
+<span class="c-white">  zapier gmail.send '{"to":"..."}'</span><br>
+<span class="c-green">sent.</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">pip install mcp fastmcp<br>.claude/skills/mcp-client/ <span class="c-dim"># scripts + references included</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 03: artifacts-builder -->
+  <div id="s03" class="section">
+    <div class="s-header">
+      <div class="s-num">03</div>
+      <div class="s-eyebrow">skill 03 / 10 — built-in</div>
+      <h1 class="s-title">artifacts-builder</h1>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+      <p class="s-tagline"><span class="hl">Interactive dashboards</span> shipped in one session.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>React, Tailwind, shadcn/ui. Multi-component stateful apps with routing. Not single-file demos.</span></li>
+        <li><span class="bdot"></span><span>Built directly in claude.ai as artifacts. No code editor, no local environment needed.</span></li>
+        <li><span class="bdot"></span><span>Describe the interface. Claude builds it. Review and iterate without touching code.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">artifact output</div>
+<span class="c-accent">AY Automate Dashboard</span><br>
+<div style="background:var(--surface3);border:1px solid var(--border2);border-radius:2px;padding:8px 10px;margin:8px 0;font-size:11px;">
+  <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span class="c-white">Revenue</span><span class="c-green">$48,200</span></div>
+  <div style="display:flex;justify-content:space-between;"><span class="c-dim">vs last month</span><span class="c-green">+12%</span></div>
+</div>
+<div style="background:var(--surface3);border:1px solid var(--border2);border-radius:2px;padding:8px 10px;margin:8px 0;font-size:11px;">
+  <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span class="c-white">Active clients</span><span class="c-accent">13</span></div>
+  <div style="display:flex;justify-content:space-between;"><span class="c-white">Pipeline</span><span class="c-accent">€120K</span></div>
+</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;">
+  <span style="background:var(--accent-sub);color:var(--accent);font-size:9px;padding:2px 6px;border-radius:2px;">React 18</span>
+  <span style="background:var(--accent-sub);color:var(--accent);font-size:9px;padding:2px 6px;border-radius:2px;">Tailwind</span>
+  <span style="background:var(--accent-sub);color:var(--accent);font-size:9px;padding:2px 6px;border-radius:2px;">shadcn/ui</span>
+</div><br>
+<span class="c-green">built in 1 session</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">.claude/skills/artifacts-builder/ <span class="c-dim"># use in claude.ai sessions</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 04: excalidraw-diagram -->
+  <div id="s04" class="section">
+    <div class="s-header">
+      <div class="s-num">04</div>
+      <div class="s-eyebrow">skill 04 / 10 — built-in</div>
+      <h1 class="s-title">excalidraw-<br>diagram</h1>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+      <p class="s-tagline"><span class="hl">Architecture diagrams</span> from plain English.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Describe any workflow, agent system, or client architecture. Claude generates the diagram JSON.</span></li>
+        <li><span class="bdot"></span><span>Outputs a .excalidraw file plus a PNG render via Playwright. Ready for client deliverables.</span></li>
+        <li><span class="bdot"></span><span>Hand-drawn style. Looks human. Used in proposals, SOPs, and engineering documentation.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">"draw my onboarding flow"</div>
+        <div class="dg">
+          <div class="dg-node">Lead comes in</div>
+          <div class="dg-v">|</div>
+          <div class="dg-node">Discovery call</div>
+          <div class="dg-v">|</div>
+          <div class="dg-node">Proposal sent</div>
+          <div class="dg-v">|</div>
+          <div class="dg-node-hl">Signed</div>
+          <div class="dg-v">|</div>
+          <div class="dg-row">
+            <div class="dg-node">Kickoff</div>
+            <span style="color:var(--dim);">&#8594;</span>
+            <div class="dg-node">Build</div>
+            <span style="color:var(--dim);">&#8594;</span>
+            <div class="dg-node-hl">Handoff</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding-top:8px;border-top:1px solid var(--border);font-size:10px;color:var(--accent);">
+          exported: onboarding.excalidraw + onboarding.png
+        </div>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">.claude/skills/excalidraw-diagram/ <span class="c-dim"># requires playwright</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 05: remotion -->
+  <div id="s05" class="section">
+    <div class="s-header">
+      <div class="s-num">05</div>
+      <div class="s-eyebrow">skill 05 / 10 — built-in</div>
+      <h1 class="s-title">remotion</h1>
+      <div class="badge-row"><span class="badge badge-builtin">built-in</span></div>
+      <p class="s-tagline"><span class="hl">Programmatic video</span> creation with React.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Animations, captions, audio, 3D. All in code. No timeline editor, no manual keyframing.</span></li>
+        <li><span class="bdot"></span><span>Parametrizable videos with Zod schemas. One composition, infinite variations.</span></li>
+        <li><span class="bdot"></span><span>With this skill active, Claude writes correct Remotion code every time. No trial and error on API surface.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">render output</div>
+<span class="c-dim">$</span> <span class="c-purple">npx</span> <span class="c-white">remotion render</span><br><br>
+<span class="c-accent">Composition:</span> <span class="c-white">ClientStory</span><br>
+<span class="c-accent">Duration:</span>    <span class="c-white">45s @ 30fps</span><br>
+<span class="c-accent">Resolution:</span>  <span class="c-white">1920 x 1080</span><br><br>
+<span class="c-dim">Rendering frame 1/1350...</span><br>
+<span class="c-dim">Rendering frame 1350/1350...</span><br><br>
+<span class="c-green">Output: client-story.mp4</span><br>
+<span class="c-dim">LinkedIn-ready. 45 seconds.</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">.claude/skills/remotion/ <span class="c-dim"># github.com/remotion-dev/skills</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 06: ui-ux-pro-max -->
+  <div id="s06" class="section">
+    <div class="s-header">
+      <div class="s-num">06</div>
+      <div class="s-eyebrow">skill 06 / 10 — github</div>
+      <h1 class="s-title">ui-ux-pro-max</h1>
+      <div class="badge-row">
+        <span class="badge badge-github">github</span>
+        <a class="gh-ref" href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank">github.com/nextlevelbuilder/ui-ux-pro-max-skill</a>
+      </div>
+      <p class="s-tagline"><span class="hl">161 design rules.</span> Zero generic output.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Industry-specific rules for SaaS, fintech, e-commerce, healthcare. Applied automatically before Claude writes a line of CSS.</span></li>
+        <li><span class="bdot"></span><span>67 UI styles: glassmorphism, bento grid, AI-native, brutalist, neumorphism. Claude picks and executes with precision.</span></li>
+        <li><span class="bdot"></span><span>57 font pairings and 161 color palettes. Full support for React, Vue, Flutter, SwiftUI.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">design system output</div>
+<span class="c-accent">Style:</span>    <span class="c-white">AI-native SaaS</span><br>
+<span class="c-accent">Industry:</span> <span class="c-white">Fintech</span><br><br>
+<span class="c-accent">Fonts:</span><br>
+<span class="c-dim">  display:</span> <span class="c-white">Space Grotesk</span><br>
+<span class="c-dim">  body:</span>    <span class="c-white">DM Sans</span><br><br>
+<span class="c-accent">Palette:</span>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#8182C1;"></div>
+          <div class="swatch" style="background:#080812;"></div>
+          <div class="swatch" style="background:#fafafa;"></div>
+          <div class="swatch" style="background:#A3A4D8;"></div>
+        </div>
+<span class="c-accent">Rules applied:</span> <span class="c-white">23 / 161</span><br>
+<span class="c-dim">Button, Card, Input, Nav, Hero</span><br><br>
+<span class="c-green">system ready</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">npm install -g uipro-cli<br>uipro init --ai claude</span>
+    </div>
+  </div>
+
+  <!-- SKILL 07: notebooklm -->
+  <div id="s07" class="section">
+    <div class="s-header">
+      <div class="s-num">07</div>
+      <div class="s-eyebrow">skill 07 / 10 — github</div>
+      <h1 class="s-title">notebooklm</h1>
+      <div class="badge-row">
+        <span class="badge badge-github">github</span>
+        <a class="gh-ref" href="https://github.com/PleasePrompto/notebooklm-skill" target="_blank">github.com/PleasePrompto/notebooklm-skill</a>
+      </div>
+      <p class="s-tagline">Query your docs. <span class="hl">Zero hallucinations.</span></p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Source-grounded answers exclusively from your uploaded documents. Every answer ties back to a source.</span></li>
+        <li><span class="bdot"></span><span>Manages multiple notebooks with persistent browser authentication. Auto follow-up loop until the answer is complete.</span></li>
+        <li><span class="bdot"></span><span>Always use <code style="font-family:var(--font-m);color:var(--accent);">run.py</code> wrapper. Handles venv, dependencies, and Chromium automatically on first run.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">Q&amp;A session</div>
+<span class="c-accent">Q:</span> <span class="c-white">"What does our proposal include?"</span><br><br>
+<span class="c-accent">A:</span> <span class="c-white">Based on your documents:</span><br>
+<span class="c-dim">  Section 3 covers pricing tiers</span><br>
+<span class="c-dim">  ROI calculator on page 12</span><br>
+<span class="c-dim">  3 service options defined</span><br><br>
+<span class="c-accent">Sources:</span><br>
+<span class="c-dim">  [Proposal-2026.pdf, p.3]</span><br>
+<span class="c-dim">  [Proposal-2026.pdf, p.12]</span><br><br>
+<span class="c-green">0 hallucinations</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">git clone https://github.com/PleasePrompto/notebooklm-skill ~/.claude/skills/notebooklm</span>
+    </div>
+  </div>
+
+  <!-- SKILL 08: claude-seo -->
+  <div id="s08" class="section">
+    <div class="s-header">
+      <div class="s-num">08</div>
+      <div class="s-eyebrow">skill 08 / 10 — github</div>
+      <h1 class="s-title">claude-seo</h1>
+      <div class="badge-row">
+        <span class="badge badge-github">github</span>
+        <a class="gh-ref" href="https://github.com/AgriciDaniel/claude-seo" target="_blank">github.com/AgriciDaniel/claude-seo</a>
+      </div>
+      <p class="s-tagline">Full SEO audits with <span class="hl">13 sub-skills</span> and 6 subagents.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Technical SEO, Core Web Vitals (LCP, INP, CLS), E-E-A-T scoring, and schema markup in one command.</span></li>
+        <li><span class="bdot"></span><span>AI search optimization for Google AI Overviews, ChatGPT, and Perplexity. Built for 2026.</span></li>
+        <li><span class="bdot"></span><span>DataForSEO MCP with 22 commands across 9 API modules. Integrates Ahrefs, Semrush, GSC.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">audit output</div>
+<span class="c-accent">Site:</span> <span class="c-white">ayautomate.com</span><br>
+<div style="height:1px;background:var(--border);margin:8px 0;"></div>
+<span class="c-accent">Core Web Vitals:</span> <span class="c-green">PASS</span><br>
+<span class="c-accent">Technical SEO:</span>   <span class="c-white">94 / 100</span><br>
+<span class="c-accent">E-E-A-T Score:</span>   <span class="c-white">87 / 100</span><br>
+<span class="c-accent">Schema:</span>          <span class="c-orange">3 issues</span><br>
+<span class="c-accent">AI Search:</span>       <span class="c-orange">2 gaps</span><br>
+<div style="height:1px;background:var(--border);margin:8px 0;"></div>
+<span class="c-white">12 recommendations generated</span><br>
+<span class="c-dim">Priority: HIGH on 4 items</span><br><br>
+<span class="c-green">report ready</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">curl -fsSL https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh | bash <span class="c-dim"># Python 3.8+ required</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 09: agent-browser -->
+  <div id="s09" class="section">
+    <div class="s-header">
+      <div class="s-num">09</div>
+      <div class="s-eyebrow">skill 09 / 10 — github</div>
+      <h1 class="s-title">agent-browser</h1>
+      <div class="badge-row">
+        <span class="badge badge-github">github</span>
+        <a class="gh-ref" href="https://github.com/vercel-labs/agent-browser" target="_blank">github.com/vercel-labs/agent-browser</a>
+      </div>
+      <p class="s-tagline">Control <span class="hl">any browser interface.</span> No API needed.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Ref-based element targeting. Snapshot returns stable @e1, @e2 refs. Deterministic, agent-friendly, no flaky selectors.</span></li>
+        <li><span class="bdot"></span><span>Click, fill, scroll, upload, drag, intercept network requests. Parallel sessions with persistent cookie and auth state.</span></li>
+        <li><span class="bdot"></span><span>Swap to Browserbase, Browser Use, or Kernel cloud providers with a single flag. 14K GitHub stars.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">browser session</div>
+<span class="c-dim">$</span> <span class="c-white">agent-browser open example.com</span><br>
+<span class="c-dim">$</span> <span class="c-white">agent-browser snapshot -i --json</span><br><br>
+<span class="c-accent">@e1</span> <span class="c-dim">[nav]    Home</span><br>
+<span class="c-accent">@e2</span> <span class="c-dim">[nav]    Pricing</span><br>
+<span class="c-accent">@e3</span> <span class="c-dim">[button] Sign Up</span><br>
+<span class="c-accent">@e4</span> <span class="c-dim">[input]  Email field</span><br><br>
+<span class="c-dim">$</span> <span class="c-white">agent-browser fill @e4 "walid@ayautomate.com"</span><br>
+<span class="c-dim">$</span> <span class="c-white">agent-browser click @e3</span><br><br>
+<span class="c-green">done.</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">npm install -g agent-browser<br>agent-browser install <span class="c-dim"># downloads Chromium</span></span>
+    </div>
+  </div>
+
+  <!-- SKILL 10: superpowers -->
+  <div id="s10" class="section">
+    <div class="s-header">
+      <div class="s-num">10</div>
+      <div class="s-eyebrow">skill 10 / 10 — github</div>
+      <h1 class="s-title">superpowers</h1>
+      <div class="badge-row">
+        <span class="badge badge-github">github</span>
+        <a class="gh-ref" href="https://github.com/obra/superpowers" target="_blank">github.com/obra/superpowers</a>
+      </div>
+      <p class="s-tagline">Brainstorm to <span class="hl">merged PR,</span> fully automated.</p>
+    </div>
+    <div class="content-grid">
+      <ul class="bullets">
+        <li><span class="bdot"></span><span>Structured agentic dev loop: brainstorm, design spec, git worktree, subagent tasks, two-stage code review, merge.</span></li>
+        <li><span class="bdot"></span><span>Subagents dispatched per task with spec compliance check first, code quality check second. Claude runs for hours without deviating.</span></li>
+        <li><span class="bdot"></span><span>Enforces TDD: RED-GREEN-REFACTOR. No code before a failing test exists. 40.9K GitHub stars.</span></li>
+      </ul>
+      <div class="result-card">
+        <span class="cb-tl"></span><span class="cb-br"></span>
+        <div class="rc-hd">workflow execution</div>
+<span class="c-accent">brainstorm</span>  <span class="c-green">approved</span><br>
+<span class="c-accent">spec doc</span>     <span class="c-green">saved</span><br>
+<span class="c-accent">worktree</span>     <span class="c-green">created</span><br>
+<div style="height:1px;background:var(--border);margin:8px 0;"></div>
+<span class="c-white">Tasks dispatched:</span><br>
+<span class="c-dim">  agent-1: build API endpoints</span><br>
+<span class="c-dim">  agent-2: build UI components</span><br>
+<span class="c-dim">  agent-3: write test suite</span><br>
+<div style="height:1px;background:var(--border);margin:8px 0;"></div>
+<span class="c-accent">Review:</span> <span class="c-green">PASS (2-stage)</span><br><br>
+<span class="c-green">PR ready to merge</span>
+      </div>
+    </div>
+    <div class="install-block">
+      <span class="install-label">install</span>
+      <span class="install-code">git clone https://github.com/obra/superpowers ~/.claude/skills/superpowers <span class="c-dim"># or Claude Code plugin marketplace</span></span>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map = { overview: 0, s01: 1, s02: 2, s03: 3, s04: 4, s05: 5, s06: 6, s07: 7, s08: 8, s09: 9, s10: 10 };
+  document.querySelectorAll('.nav-item')[map[id]].classList.add('active');
+  document.querySelector('.main').scrollTo(0, 0);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "attio": {
+      "url": "https://mcp.attio.com/mcp",
+      "transport": "http",
+      "_comment": "Attio CRM — companies, people, deals, tasks, notes"
+    },
+    "unipile": {
+      "url": "https://developer.unipile.com/mcp",
+      "transport": "http",
+      "_comment": "Unipile — LinkedIn messaging, profiles, posts, connections"
+    },
+    "anysite": {
+      "url": "https://mcp.anysite.io/mcp",
+      "transport": "http",
+      "_comment": "Anysite — LinkedIn scraping, web data, YouTube, Reddit"
+    },
+    "notion": {
+      "transport": "native",
+      "_comment": "Notion — search, fetch, create pages. Available via mcp__notion__* tools"
+    },
+    "slack": {
+      "transport": "native",
+      "_comment": "Slack — channels, messages, search. Available via mcp__slack__* tools"
+    }
+    ,
+    "ay-proposals": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://ay-proposal-mcp-server.vercel.app/mcp",
+        "--header",
+        "Authorization: Bearer 6a65cd5659feb16eb9dd84c02d853ba6861ac1835a4a069b522830ebbccd4df9"
+      ],
+      "_comment": "AY Proposals MCP server"
+    }
+  }
+}
