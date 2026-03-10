@@ -31,9 +31,9 @@
         "mcp-remote",
         "https://ay-proposal-mcp-server.vercel.app/mcp",
         "--header",
-        "Authorization: Bearer 6a65cd5659feb16eb9dd84c02d853ba6861ac1835a4a069b522830ebbccd4df9"
+        "Authorization: Bearer ${AY_PROPOSALS_API_KEY}"
       ],
-      "_comment": "AY Proposals MCP server"
+      "_comment": "AY Proposals MCP server — set AY_PROPOSALS_API_KEY in your environment or point MCP_CONFIG_PATH to a local config with the real token (do not commit secrets)."
     }
   }
 }

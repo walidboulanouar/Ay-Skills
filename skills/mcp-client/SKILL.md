@@ -25,6 +25,11 @@ The script looks for config in this order:
 
 Edit this file to add your API keys. The example file (`example-mcp-config.json`) is kept as a reference template.
 
+Security note:
+- Never commit real API keys. This repo uses a placeholder `${AY_PROPOSALS_API_KEY}` for the AY Proposals server.
+- Option 1 (recommended): Create a private config and point the script to it: `export MCP_CONFIG_PATH=~/.claude/skills/mcp-client/references/mcp-config.local.json` (same structure, with your real token). Keep that file out of git.
+- Option 2: Export your key in the shell: `export AY_PROPOSALS_API_KEY=...` and ensure your runtime interpolates env vars. If not, use Option 1.
+
 **If the user hasn't provided their Zapier API key yet, ask them for it.**
 
 ## Running Commands
